@@ -46,18 +46,43 @@ O projeto utiliza Docker Compose para gerenciar os serviços necessários para o
    ```sh
    npx playwright install
    ```
+   
 2. Para rodar os testes localmente:
    ```sh
    npx playwright test
    ```
+
 3. Para visualizar o relatório dos testes após a execução:
    ```sh
    npx playwright show-report
    ```
+
 4. Para rodar os testes em modo UI (visualizando a execução):
    ```sh
    npx playwright test --ui
    ```
+
+5. Runs the tests only on Desktop Chrome.
+   ```sh
+   npx playwright test --project=chromium
+   ```
+
+6. Runs the tests in debug mode.
+   ```sh
+   npx playwright test --debug
+   ```
+
+7. Auto generate tests with Codegen.
+   ```sh
+   npx playwright codegen
+   ```
+
+8. Rodar os testes de forma assistida abrindo o navegador.
+   ```sh
+   npx playwright test --headed
+   ```
+## site ref para treinar programacao::
+>   https://playcode.io/javascript
 
 ## 📄 Licença
 Este projeto está sob a licença MIT.
