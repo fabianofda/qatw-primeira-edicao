@@ -84,5 +84,9 @@ O projeto utiliza Docker Compose para gerenciar os serviços necessários para o
 ## site ref para treinar programacao::
 >   https://playcode.io/javascript
 
+## libs::
+conexao db postgress no node
+npm i pg-promise
+
 ## 📄 Licença
 Este projeto está sob a licença MIT.
