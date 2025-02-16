@@ -88,5 +88,8 @@ O projeto utiliza Docker Compose para gerenciar os serviços necessários para o
 conexao db postgress no node
 npm i pg-promise
 
+conexao com o redis (https://bullmq.io)
+npm i bullmq
+
 ## 📄 Licença
 Este projeto está sob a licença MIT.

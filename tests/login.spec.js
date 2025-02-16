@@ -5,6 +5,7 @@ import { obterCodigo2FA } from "../support/db";
 import { LoginPage } from "../pages/LoginPage";
 import { DashPage } from "../pages/DashPage";
 import { LoginActions } from "../actions/LoginActions";
+import { cleanJobs, getJob } from "../support/redis";
 
 test("Nao deve logar com codigo 2FA invalido", async ({ page }) => {
   const loginPage = new LoginPage(page);
@@ -27,9 +28,11 @@ test("Nao deve logar com codigo 2FA invalido", async ({ page }) => {
   );
 });
 
-test("Deve acessar a conta do usuario", async ({ page }) => {
+test("Deve acessar a conta do usuario - Page Objectis + Postgress", async ({
+  page,
+}) => {
   const loginPage = new LoginPage(page);
-  const dashPage = new DashPage(page)
+  const dashPage = new DashPage(page);
 
   const usuario = {
     cpf: "00000014141",
@@ -41,18 +44,18 @@ test("Deve acessar a conta do usuario", async ({ page }) => {
   await loginPage.informaSenha(usuario.senha);
 
   //  temporario
-  await page.waitForTimeout(2000);
+  await page.waitForTimeout(5000);
 
-  const codigo = await obterCodigo2FA();
+  const codigo = await obterCodigo2FA(usuario.cpf);
   await loginPage.informa2FA(codigo);
 
   //  temporario
-  await page.waitForTimeout(2000);
+  await page.waitForTimeout(5000);
 
   expect(await dashPage.obterSaldo()).toHaveText("R$ 5.000,00");
 });
 
-test("Deve acessar a conta do usuario 2", async ({ page }) => {
+test("Deve acessar a conta do usuario 2 - Actions", async ({ page }) => {
   const loginActions = new LoginActions(page);
 
   const usuario = {
@@ -65,13 +68,42 @@ test("Deve acessar a conta do usuario 2", async ({ page }) => {
   await loginActions.informaSenha(usuario.senha);
 
   //  temporario
-  await page.waitForTimeout(2000);
+  await page.waitForTimeout(5000);
 
-  const codigo = await obterCodigo2FA();
+  const codigo = await obterCodigo2FA(usuario.cpf);
   await loginActions.informa2FA(codigo);
 
   //  temporario
-  await page.waitForTimeout(2000);
+  await page.waitForTimeout(5000);
 
   expect(await loginActions.obterSaldo()).toHaveText("R$ 5.000,00");
+});
+
+test("Deve acessar a conta do usuario 3 - Page Objectis + REDIS", async ({
+  page,
+}) => {
+  const loginPage = new LoginPage(page);
+  const dashPage = new DashPage(page);
+
+  const usuario = {
+    cpf: "00000014141",
+    senha: "147258",
+  };
+
+  await cleanJobs();
+
+  await loginPage.acessaPagina();
+  await loginPage.informaCpf(usuario.cpf);
+  await loginPage.informaSenha(usuario.senha);
+
+  //  checkpoint
+  await page
+    .getByRole("heading", { name: "Verificação em duas etapas" })
+    .waitFor({ timeout: 5000 });
+
+  const codigo = await getJob();
+
+  await loginPage.informa2FA(codigo);
+
+  await expect(await dashPage.obterSaldo()).toHaveText("R$ 5.000,00");
 });
