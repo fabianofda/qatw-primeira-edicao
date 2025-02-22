@@ -91,5 +91,7 @@ npm i pg-promise
 conexao com o redis (https://bullmq.io)
 npm i bullmq
 
+psw - jenkins-server: fc0f1c0f9d1f49ac800b3a129533027e
+
 ## 📄 Licença
 Este projeto está sob a licença MIT.
