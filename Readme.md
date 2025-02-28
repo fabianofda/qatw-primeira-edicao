@@ -93,5 +93,11 @@ npm i bullmq
 
 psw - jenkins-server: fc0f1c0f9d1f49ac800b3a129533027e
 
+destroi o ambiente
+> docker compose down 
+
+constroi o novo ambiente
+> docker compose up -d 
+
 ## 📄 Licença
 Este projeto está sob a licença MIT.
