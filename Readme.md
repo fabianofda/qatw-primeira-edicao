@@ -99,5 +99,8 @@ destroi o ambiente
 constroi o novo ambiente
 > docker compose up -d 
 
+## Gerando imagem customizada com docker
+>  docker build -t fabianof2da/playwright-nj-v1.50.1-noble .
+
 ## 📄 Licença
 Este projeto está sob a licença MIT.
