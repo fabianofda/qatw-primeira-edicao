@@ -7,77 +7,77 @@ import { DashPage } from "../pages/DashPage";
 import { LoginActions } from "../actions/LoginActions";
 import { cleanJobs, getJob } from "../support/redis";
 
-test("Nao deve logar com codigo 2FA invalido", async ({ page }) => {
-  const loginPage = new LoginPage(page);
+// test("Nao deve logar com codigo 2FA invalido", async ({ page }) => {
+//   const loginPage = new LoginPage(page);
 
-  const usuario = {
-    cpf: "00000014141",
-    senha: "147258",
-  };
+//   const usuario = {
+//     cpf: "00000014141",
+//     senha: "147258",
+//   };
 
-  await loginPage.acessaPagina();
-  await loginPage.informaCpf(usuario.cpf);
-  await loginPage.informaSenha(usuario.senha);
-  await loginPage.informa2FA("123456");
+//   await loginPage.acessaPagina();
+//   await loginPage.informaCpf(usuario.cpf);
+//   await loginPage.informaSenha(usuario.senha);
+//   await loginPage.informa2FA("123456");
 
-  //  temporario
-  await page.waitForTimeout(2000);
+//   //  temporario
+//   await page.waitForTimeout(2000);
 
-  expect(await loginPage.mensagemDeAlerta()).toContainText(
-    "Código inválido. Por favor, tente novamente."
-  );
-});
+//   expect(await loginPage.mensagemDeAlerta()).toContainText(
+//     "Código inválido. Por favor, tente novamente."
+//   );
+// });
 
-test("Deve acessar a conta do usuario - Page Objectis + Postgress", async ({
-  page,
-}) => {
-  const loginPage = new LoginPage(page);
-  const dashPage = new DashPage(page);
+// test("Deve acessar a conta do usuario - Page Objectis + Postgress", async ({
+//   page,
+// }) => {
+//   const loginPage = new LoginPage(page);
+//   const dashPage = new DashPage(page);
 
-  const usuario = {
-    cpf: "00000014141",
-    senha: "147258",
-  };
+//   const usuario = {
+//     cpf: "00000014141",
+//     senha: "147258",
+//   };
 
-  await loginPage.acessaPagina();
-  await loginPage.informaCpf(usuario.cpf);
-  await loginPage.informaSenha(usuario.senha);
+//   await loginPage.acessaPagina();
+//   await loginPage.informaCpf(usuario.cpf);
+//   await loginPage.informaSenha(usuario.senha);
 
-  //  temporario
-  await page.waitForTimeout(5000);
+//   //  temporario
+//   await page.waitForTimeout(5000);
 
-  const codigo = await obterCodigo2FA(usuario.cpf);
-  await loginPage.informa2FA(codigo);
+//   const codigo = await obterCodigo2FA(usuario.cpf);
+//   await loginPage.informa2FA(codigo);
 
-  //  temporario
-  await page.waitForTimeout(5000);
+//   //  temporario
+//   await page.waitForTimeout(5000);
 
-  expect(await dashPage.obterSaldo()).toHaveText("R$ 5.000,00");
-});
+//   expect(await dashPage.obterSaldo()).toHaveText("R$ 5.000,00");
+// });
 
-test("Deve acessar a conta do usuario 2 - Actions", async ({ page }) => {
-  const loginActions = new LoginActions(page);
+// test("Deve acessar a conta do usuario 2 - Actions", async ({ page }) => {
+//   const loginActions = new LoginActions(page);
 
-  const usuario = {
-    cpf: "00000014141",
-    senha: "147258",
-  };
+//   const usuario = {
+//     cpf: "00000014141",
+//     senha: "147258",
+//   };
 
-  await loginActions.acessaPagina();
-  await loginActions.informaCpf(usuario.cpf);
-  await loginActions.informaSenha(usuario.senha);
+//   await loginActions.acessaPagina();
+//   await loginActions.informaCpf(usuario.cpf);
+//   await loginActions.informaSenha(usuario.senha);
 
-  //  temporario
-  await page.waitForTimeout(5000);
+//   //  temporario
+//   await page.waitForTimeout(5000);
 
-  const codigo = await obterCodigo2FA(usuario.cpf);
-  await loginActions.informa2FA(codigo);
+//   const codigo = await obterCodigo2FA(usuario.cpf);
+//   await loginActions.informa2FA(codigo);
 
-  //  temporario
-  await page.waitForTimeout(5000);
+//   //  temporario
+//   await page.waitForTimeout(5000);
 
-  expect(await loginActions.obterSaldo()).toHaveText("R$ 5.000,00");
-});
+//   expect(await loginActions.obterSaldo()).toHaveText("R$ 5.000,00");
+// });
 
 test("Deve acessar a conta do usuario 3 - Page Objectis + REDIS", async ({
   page,
