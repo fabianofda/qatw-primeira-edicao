@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        docker{
+        docker {
             image 'fabianof2da/playwright-nj-v1.50.1-noble'
             args '--network qatw-primeira-edicao_skynet'
         }
